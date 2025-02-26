@@ -175,7 +175,7 @@ export default function Hero() {
                       animate={{ opacity: [0.6, 1, 0.6] }}
                       transition={{ duration: 2, repeat: Infinity }}
                     >
-                      chaque mois
+                      chaque mois sur vos réseaux sociaux
                     </motion.div>
                   </div>
                   <motion.div
@@ -185,8 +185,8 @@ export default function Hero() {
                     transition={{ delay: 0.3 }}
                   />
                   <div className="text-white/80 font-medium">
-                  450 personnes qui vont tous particper a vous faire connaitre en likant , 
-                  commentant, partageant vos publications.{" "}
+                  450 personnes qui vont tous particper à vous faire connaitre en likant , 
+                  commentant, partageant vos publications, s'abonnant...{" "}
                   
                     
                   </div>
@@ -194,21 +194,26 @@ export default function Hero() {
               </motion.div>
 
               {/* Badge 100% Gratuit */}
-              <motion.div
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="inline-block bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full px-6 py-2 border border-white/10 backdrop-blur-sm"
-              >
-                <span className="text-white font-semibold">✨ Mikky c'est 100% Gratuit - Aucun frais caché</span>
-              </motion.div>
+              <div className="w-full flex justify-center">
+                <motion.div
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                  className="inline-block bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full px-6 py-2 border border-white/10 backdrop-blur-sm"
+                >
+                  <span className="text-white font-semibold">✨ Mikky c'est 100% Gratuit - Aucun frais caché</span>
+                </motion.div>
+              </div>
 
               {/* Simple spacer */}
               <div className="my-8" />
 <br/><br/><br/><br/><br/><br/><br/><br/>
               {/* Les 3 étapes */}
+              <h3 className="text-4xl font-bold text-white font-poppins text-center mb-7">
+                Développez votre audience en
+                <span className="bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent"> 3 étapes</span>
+              </h3>
               <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-6 shadow-xl border border-white/10">
-                <h3 className="text-2xl font-bold text-white mb-6">Développez votre audience en 3 étapes</h3>
                 <ul className="space-y-4">
                   <motion.li 
                     className="flex items-start gap-3"
@@ -291,22 +296,22 @@ export default function Hero() {
         <motion.div
           className="absolute left-[5%] top-[15%] w-48 h-48"
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          animate={{ opacity: 0.7 }}
           transition={{ duration: 2 }}
         >
           {/* Cercle principal du soleil */}
           <div
-            className="absolute inset-0 rounded-full bg-gradient-to-br from-yellow-200 via-orange-300 to-red-400"
+            className="absolute inset-0 rounded-full bg-gradient-to-br from-yellow-200/60 via-orange-300/50 to-red-400/40"
             style={{
-              boxShadow: "0 0 50px 25px rgba(255, 200, 0, 0.6)"
+              boxShadow: "0 0 30px 15px rgba(255, 200, 0, 0.3)"
             }}
           />
           {/* Halo lumineux */}
           <div
-            className="absolute -inset-2 rounded-full bg-gradient-to-br from-yellow-100 to-orange-300"
+            className="absolute -inset-2 rounded-full bg-gradient-to-br from-yellow-100/40 to-orange-300/30"
             style={{
-              opacity: 0.9,
-              filter: "blur(4px)"
+              opacity: 0.6,
+              filter: "blur(8px)"
             }}
           />
         </motion.div>
