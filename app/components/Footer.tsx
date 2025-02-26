@@ -650,23 +650,35 @@ export default function Footer() {
           </div>
         )}
 
+        {content.culture && (
+          <div className="bg-gray-50 rounded-lg p-4 mt-4">
+            <p className="text-gray-700 italic">{content.culture}</p>
+          </div>
+        )}
+
+        {content.process && (
+          <div className="bg-gray-50 rounded-lg p-4 mt-4">
+            <p className="text-gray-700 italic">{content.process}</p>
+          </div>
+        )}
+
         {content.sections && (
-          <div className="space-y-6">
+          <div className="space-y-8">
             {content.sections.map((section: Section, index: number) => (
-              <div key={index} className="bg-gray-50 rounded-lg p-6 shadow-sm">
-                <h4 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+              <div key={index} className="bg-gray-50 rounded-lg p-8 shadow-sm">
+                <h4 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
                   {section.title}
                 </h4>
                 {section.subsections ? (
-                  <div className="space-y-4">
+                  <div className="space-y-6">
                     {section.subsections.map((subsection: { subtitle: string; items: string[] }, subIndex: number) => (
-                      <div key={subIndex} className="ml-4">
-                        <h5 className="text-lg font-semibold text-gray-700 mb-2">
+                      <div key={subIndex} className="ml-6">
+                        <h5 className="text-xl font-semibold text-gray-700 mb-4">
                           {subsection.subtitle}
                         </h5>
-                        <ul className="space-y-2">
+                        <ul className="space-y-3">
                           {subsection.items.map((item: string, itemIndex: number) => (
-                            <li key={itemIndex} className="text-gray-600 flex items-center gap-2">
+                            <li key={itemIndex} className="text-gray-600 flex items-center gap-3 text-lg">
                               {item}
                             </li>
                           ))}
@@ -675,9 +687,9 @@ export default function Footer() {
                     ))}
                   </div>
                 ) : (
-                  <ul className="space-y-2">
+                  <ul className="space-y-3">
                     {section.items?.map((item: string, itemIndex: number) => (
-                      <li key={itemIndex} className="text-gray-600 flex items-center gap-2">
+                      <li key={itemIndex} className="text-gray-600 flex items-center gap-3 text-lg">
                         {item}
                       </li>
                     ))}
@@ -689,13 +701,13 @@ export default function Footer() {
         )}
 
         {content.legalInfo && (
-          <div className="mt-6 bg-blue-50 rounded-lg p-6 shadow-sm">
-            <h4 className="text-xl font-bold text-blue-800 mb-4">
+          <div className="mt-8 bg-blue-50 rounded-lg p-8 shadow-sm">
+            <h4 className="text-2xl font-bold text-blue-800 mb-6">
               {content.legalInfo.title}
             </h4>
-            <ul className="space-y-2">
+            <ul className="space-y-3">
               {content.legalInfo.items.map((item, index) => (
-                <li key={index} className="text-blue-700">
+                <li key={index} className="text-blue-700 text-lg">
                   {item}
                 </li>
               ))}
@@ -704,20 +716,20 @@ export default function Footer() {
         )}
 
         {content.contact && (
-          <div className="mt-6 bg-green-50 rounded-lg p-6 shadow-sm">
-            <h4 className="text-xl font-bold text-green-800 mb-4">
+          <div className="mt-8 bg-green-50 rounded-lg p-8 shadow-sm">
+            <h4 className="text-2xl font-bold text-green-800 mb-6">
               {content.contact.title}
             </h4>
             {content.contact.items ? (
-              <ul className="space-y-2">
+              <ul className="space-y-3">
                 {content.contact.items.map((item, index) => (
-                  <li key={index} className="text-green-700">
+                  <li key={index} className="text-green-700 text-lg">
                     {item}
                   </li>
                 ))}
               </ul>
             ) : (
-              <div className="space-y-2 text-green-700">
+              <div className="space-y-3 text-green-700 text-lg">
                 <p>Nom : {content.contact.name}</p>
                 <p>Email : {content.contact.email}</p>
                 <p>Disponibilité : {content.contact.availability}</p>
@@ -810,7 +822,7 @@ export default function Footer() {
               onClick={() => setActivePopup(null)}
             />
             <motion.div
-              className="bg-white rounded-xl p-6 md:p-8 relative z-10 max-w-4xl w-full shadow-2xl max-h-[85vh] overflow-y-auto"
+              className="bg-white rounded-xl p-6 md:p-8 relative z-10 max-w-6xl w-full shadow-2xl max-h-[90vh] overflow-y-auto"
               layoutId={`popup-${activePopup.sectionIndex}-${activePopup.linkIndex}`}
             >
               <button
@@ -822,7 +834,7 @@ export default function Footer() {
               <h3 className="text-3xl font-bold text-gray-800 mb-8 pr-8">
                 {footerLinks[activePopup.sectionIndex].links[activePopup.linkIndex].name}
               </h3>
-              <div className="prose prose-lg max-w-none">
+              <div className="prose prose-lg max-w-none space-y-8">
                 {renderPopupContent(footerLinks[activePopup.sectionIndex].links[activePopup.linkIndex].content)}
               </div>
               <motion.button
