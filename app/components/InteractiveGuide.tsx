@@ -73,10 +73,31 @@ export default function InteractiveGuide() {
   const [currentStep, setCurrentStep] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const totalSteps = steps.length;
+  const progress = ((currentStep + 1) / totalSteps) * 100;
+
+  // Fonction pour passer à l'étape suivante
+  const nextStep = () => {
+    if (currentStep < steps.length - 1) {
+      setCurrentStep(currentStep + 1);
+    } else {
+      setIsModalOpen(false);
+      setCurrentStep(0);
+    }
+  };
+
+  // Fonction pour revenir à l'étape précédente
+  const previousStep = () => {
+    if (currentStep > 0) {
+      setCurrentStep(currentStep - 1);
+    }
+  };
+
   // Fonction pour fermer le modal en cliquant en dehors
   const handleBackdropClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
       setIsModalOpen(false);
+      setCurrentStep(0);
     }
   };
 
@@ -194,9 +215,25 @@ export default function InteractiveGuide() {
                 onClick={e => e.stopPropagation()}
               >
                 <div className="flex justify-between items-start mb-6">
-                  <h3 className="text-2xl font-bold text-white">Comment ça marche ?</h3>
+                  <div className="space-y-2">
+                    <h3 className="text-2xl font-bold text-white">Comment ça marche ?</h3>
+                    <div className="flex items-center gap-2">
+                      <span className="text-white/60 text-sm">Étape {currentStep + 1} sur {totalSteps}</span>
+                      <div className="h-1 w-32 bg-white/10 rounded-full overflow-hidden">
+                        <motion.div
+                          className="h-full bg-gradient-to-r from-primary to-secondary"
+                          initial={{ width: 0 }}
+                          animate={{ width: `${progress}%` }}
+                          transition={{ duration: 0.5, ease: "easeInOut" }}
+                        />
+                      </div>
+                    </div>
+                  </div>
                   <button
-                    onClick={() => setIsModalOpen(false)}
+                    onClick={() => {
+                      setIsModalOpen(false);
+                      setCurrentStep(0);
+                    }}
                     className="text-white/60 hover:text-white transition-colors text-xl"
                   >
                     ✕
@@ -204,45 +241,95 @@ export default function InteractiveGuide() {
                 </div>
 
                 <div className="space-y-6 overflow-y-auto flex-grow pr-2" style={{ scrollbarWidth: 'thin' }}>
-                  {steps.map((step, index) => (
+                  <AnimatePresence mode="wait">
                     <motion.div
-                      key={index}
-                      initial={{ opacity: 0, x: -20 }}
+                      key={currentStep}
+                      initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.1 }}
+                      exit={{ opacity: 0, x: -20 }}
+                      transition={{ duration: 0.3 }}
                       className="bg-white/5 rounded-xl p-6 backdrop-blur-sm border border-white/10"
                     >
                       <div className="flex items-start gap-4">
-                        <div className="text-3xl">{step.icon}</div>
+                        <motion.div 
+                          className="text-3xl"
+                          initial={{ scale: 0.5, rotate: -180 }}
+                          animate={{ scale: 1, rotate: 0 }}
+                          transition={{ duration: 0.5, type: "spring" }}
+                        >
+                          {steps[currentStep].icon}
+                        </motion.div>
                         <div>
-                          <h4 className="text-lg font-semibold text-white mb-2">{step.title}</h4>
-                          <p className="text-white/80 text-sm leading-relaxed">{step.description}</p>
+                          <motion.h4 
+                            className="text-lg font-semibold text-white mb-2"
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.2 }}
+                          >
+                            {steps[currentStep].title}
+                          </motion.h4>
+                          <motion.p 
+                            className="text-white/80 text-sm leading-relaxed"
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.3 }}
+                          >
+                            {steps[currentStep].description}
+                          </motion.p>
                         </div>
                       </div>
-                      {index < steps.length - 1 && (
-                        <motion.div
-                          className="h-8 w-px bg-gradient-to-b from-white/20 to-transparent mx-auto my-2"
-                          initial={{ height: 0 }}
-                          animate={{ height: 32 }}
-                          transition={{ delay: index * 0.1 + 0.3 }}
-                        />
-                      )}
                     </motion.div>
-                  ))}
+                  </AnimatePresence>
+
+                  {/* Points de progression */}
+                  <div className="flex justify-center items-center gap-2 mt-4">
+                    {steps.map((_, index) => (
+                      <motion.button
+                        key={index}
+                        className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                          index === currentStep 
+                            ? 'bg-primary w-4' 
+                            : index < currentStep 
+                              ? 'bg-white/40' 
+                              : 'bg-white/20'
+                        }`}
+                        onClick={() => setCurrentStep(index)}
+                        whileHover={{ scale: 1.2 }}
+                        whileTap={{ scale: 0.9 }}
+                      />
+                    ))}
+                  </div>
                 </div>
 
                 <motion.div
-                  className="mt-8 text-center sticky bottom-0 pt-4 bg-gray-900"
+                  className="mt-8 flex justify-between items-center sticky bottom-0 pt-4 bg-gray-900"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ delay: 0.6 }}
+                  transition={{ delay: 0.4 }}
                 >
-                  <button
-                    onClick={() => setIsModalOpen(false)}
-                    className="bg-primary text-white font-semibold px-8 py-3 rounded-full hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+                  <motion.button
+                    onClick={previousStep}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
+                      currentStep === 0 
+                        ? 'opacity-50 cursor-not-allowed' 
+                        : 'hover:bg-white/5'
+                    }`}
+                    disabled={currentStep === 0}
+                    whileHover={{ x: currentStep === 0 ? 0 : -3 }}
                   >
-                    J'ai compris !
-                  </button>
+                    <span className="text-white/60">←</span>
+                    <span className="text-white/60">Précédent</span>
+                  </motion.button>
+
+                  <motion.button
+                    onClick={nextStep}
+                    className="bg-primary text-white font-semibold px-8 py-3 rounded-full hover:shadow-lg transition-all duration-300"
+                    whileHover={{ scale: 1.05, x: 3 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    {currentStep === steps.length - 1 ? "Terminer" : "Suivant"}
+                    <span className="ml-2">→</span>
+                  </motion.button>
                 </motion.div>
               </motion.div>
             </motion.div>
