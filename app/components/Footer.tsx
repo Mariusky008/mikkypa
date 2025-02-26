@@ -815,30 +815,30 @@ export default function Footer() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
             transition={{ type: "spring", duration: 0.5 }}
-            className="fixed inset-0 flex items-center justify-center z-50 px-4"
+            className="fixed inset-0 flex items-center justify-center z-50 px-4 py-6 overflow-y-auto"
           >
             <div 
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm"
+              className="fixed inset-0 bg-black/70 backdrop-blur-sm"
               onClick={() => setActivePopup(null)}
             />
             <motion.div
-              className="bg-white rounded-xl p-6 md:p-8 relative z-10 max-w-6xl w-full shadow-2xl max-h-[90vh] overflow-y-auto"
+              className="bg-white rounded-2xl p-8 md:p-10 relative z-10 w-full max-w-6xl shadow-2xl mx-auto my-8"
               layoutId={`popup-${activePopup.sectionIndex}-${activePopup.linkIndex}`}
             >
               <button
                 onClick={() => setActivePopup(null)}
-                className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl"
+                className="absolute top-6 right-6 text-gray-400 hover:text-gray-600 text-2xl"
               >
                 ✕
               </button>
-              <h3 className="text-3xl font-bold text-gray-800 mb-8 pr-8">
+              <h3 className="text-4xl font-bold text-gray-800 mb-8 pr-8">
                 {footerLinks[activePopup.sectionIndex].links[activePopup.linkIndex].name}
               </h3>
-              <div className="prose prose-lg max-w-none space-y-8">
+              <div className="prose prose-lg max-w-none space-y-8 overflow-y-auto max-h-[70vh] px-2">
                 {renderPopupContent(footerLinks[activePopup.sectionIndex].links[activePopup.linkIndex].content)}
               </div>
               <motion.button
-                className="mt-8 bg-gradient-to-r from-primary to-secondary text-white px-8 py-3 rounded-full font-semibold w-full hover:shadow-lg transition-shadow text-lg"
+                className="mt-8 bg-gradient-to-r from-primary to-secondary text-white px-8 py-4 rounded-xl font-semibold w-full hover:shadow-lg transition-shadow text-lg"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => setActivePopup(null)}
