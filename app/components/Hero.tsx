@@ -365,7 +365,7 @@ export default function Hero() {
                       repeatType: "reverse"
                     }}
                   >
-                    Résultat concret
+                    Résultats concrêts
                   </motion.p>
                   <p className="text-white text-lg drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]">Une croissance organique et durable de votre communauté.</p>
                   <div className="bg-black/40 backdrop-blur-md rounded-lg p-6 border border-white/30 shadow-2xl">

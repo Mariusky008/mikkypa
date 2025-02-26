@@ -764,4 +764,4 @@ export default function Footer() {
       </AnimatePresence>
     </footer>
   );
-}
+} 

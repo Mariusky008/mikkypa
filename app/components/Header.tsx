@@ -191,7 +191,7 @@ export default function Header() {
             >
               <span className="relative">
                 <span className="absolute inset-x-0 bottom-0 h-[1px] bg-gradient-to-r from-primary to-secondary"></span>
-                <span className="relative font-semibold">Échangez avec d'autres créateurs de contenus</span>
+                <span className="relative font-semibold">Entre créateurs de contenus, échangez des</span>
               </span>
               <motion.span 
                 className="text-sm text-primary/90"

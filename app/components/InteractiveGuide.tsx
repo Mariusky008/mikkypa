@@ -71,13 +71,7 @@ const steps = [
 export default function InteractiveGuide() {
   const [selectedNetwork, setSelectedNetwork] = useState(networks[0]);
   const [currentStep, setCurrentStep] = useState(0);
-  const [newMembers, setNewMembers] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // Générer le nombre de nouveaux membres uniquement côté client
-  React.useEffect(() => {
-    setNewMembers(Math.floor(Math.random() * 50) + 150);
-  }, []);
 
   // Fonction pour fermer le modal en cliquant en dehors
   const handleBackdropClick = (e: React.MouseEvent) => {
@@ -89,29 +83,6 @@ export default function InteractiveGuide() {
   return (
     <section className="py-20 bg-gradient-to-b from-black/95 to-black/90 relative">
       <div className="container mx-auto px-4 relative z-10">
-        {/* Compteur de nouveaux membres */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-12"
-        >
-          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-green-500/20 to-blue-500/20 rounded-full px-6 py-2 border border-green-500/20">
-            <motion.div
-              animate={{
-                scale: [1, 1.2, 1]
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity
-              }}
-              className="w-2 h-2 bg-green-500 rounded-full"
-            />
-            <span className="text-white font-semibold">
-              {newMembers} nouveaux membres aujourd'hui
-            </span>
-          </div>
-        </motion.div>
-
         {/* Sélecteur de réseaux sociaux */}
         <div className="max-w-4xl mx-auto mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-8">
